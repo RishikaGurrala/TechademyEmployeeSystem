@@ -17,6 +17,10 @@ namespace Techademy_Employee_System.Data
         public DbSet<Designation> designation { get; set; }
         public DbSet<Employee> employee { get; set; }
         public DbSet<WorkingHours> workinghours { get; set; }
+        public DbSet<Payment> payments { get; set; }
+        public DbSet<Leave> leaves { get; set; }
+        public DbSet<Users> user { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

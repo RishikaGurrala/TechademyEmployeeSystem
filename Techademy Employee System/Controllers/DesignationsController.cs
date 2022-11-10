@@ -25,23 +25,12 @@ namespace Techademy_Employee_System.Controllers
         [HttpGet]
         public Designation GetDesignation(string Designation)
         {
-            try
-            {
                 var db = new TechademyDbContext();
-                var d = db.designation.FirstOrDefault(x => x.DesignationName == Designation);
-                if (d != null)
-                {
+                //var d = db.designation.FirstOrDefault(x => x.DesignationName == Designation);
+                //if (d != null)
+                //{
                     return designationservice.GetDesignation(Designation);
-                }
-                else
-                {
-                    return "Not Found";
-                }
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+                //}
         }
         [HttpPost]
         [Route("Post")]
@@ -49,16 +38,16 @@ namespace Techademy_Employee_System.Controllers
         {
             return designationservice.PostDesignation(desig);
         }
-        [HttpPut]
-        [Route("Put")]
-        public string PutDesignation(string DesignationName, [FromBody] Designation desig)
+        [HttpPut("{DesignationName}")]
+        
+        public string PutDesignation(string DesignationName, Designation desig)
         {
             return designationservice.UpdateDesignation(DesignationName, desig);
 
         }
-        [HttpDelete]
-        [Route("Delete")]
-        public string DeleteDesignation([FromBody] string DesignationName)
+        [HttpDelete("{DesignationName}")]
+        
+        public string DeleteDesignation(string DesignationName)
         {
             return designationservice.DeleteDesignation(DesignationName);
         }

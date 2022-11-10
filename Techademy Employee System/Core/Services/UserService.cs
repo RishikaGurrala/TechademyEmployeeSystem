@@ -4,33 +4,33 @@ using Techademy_Employee_System.DTO;
 using Techademy_Employee_System.Models;
 
 namespace Techademy_Employee_System.Core.Services
-{
-    public class RegistrationService:IRegistrationService
+{   
+    public class UserService : IUserService
     {
-        private readonly TechademyDbContext emp;
+        private readonly TechademyDbContext context;
         private readonly IConfiguration config;
-        public RegistrationService(TechademyDbContext _emp, IConfiguration _config)
+        public UserService(TechademyDbContext _context, IConfiguration _config)
         {
-            emp = _emp;
+            context = _context;
             config = _config;
         }
-
-        public string SignIn(LoginDTO loginDTO)
+        public string SignIn(Login1DTO login)
         {
             try
             {
-                var login = emp.users.FirstOrDefault(x => x.Email == loginDTO.Email && x.Password == loginDTO.Password);
-                if (login != null)
+                var log = context.user.FirstOrDefault(x => x.UserName == login.UserName && x.Password == login.Password);
+                if (log != null)
                 {
-                    //return new JwtService(config).GenerateToken(
-                    // login.UserId.ToString(),
-                    // login.FirstName,
-                    // login.LastName,
-                    // login.Mobile,
-                    // login.Email,
-                    // login.Gender
-                    //   );
-                    return "Login Succesfull";
+                    
+                    return new JwtService(config).GenerateToken(
+                     log.UserId.ToString(),
+                     log.Name,
+                    log.UserName,
+                    log.Mobile,
+                    log.Email,
+                     log.Address,
+                    log.Gender
+                      ) /*"Login Succesfull"*/;
                 }
                 else
                 {
@@ -43,22 +43,22 @@ namespace Techademy_Employee_System.Core.Services
             }
         }
 
-        public string SignUp(User user)
+        public string SignUp(Users user)
         {
             try
 
             {
-                var users = emp.users.FirstOrDefault(x => x.Email == user.Email);
+                var users = context.user.FirstOrDefault(x => x.UserName == user.UserName);
                 if (user != null)
                 {
                     if (users != null)
                     {
-                        return "Email already exist try another one";
+                        return "UserName already exist try another one";
                     }
                     else
                     {
-                        emp.users.Add(user);
-                        emp.SaveChanges();
+                        context.user.Add(user);
+                        context.SaveChanges();
                         return "registered successfully";
                     }
                 }
@@ -72,6 +72,5 @@ namespace Techademy_Employee_System.Core.Services
                 throw ex;
             }
         }
-
     }
 }

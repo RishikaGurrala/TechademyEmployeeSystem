@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Techademy_Employee_System.Data;
 
@@ -11,9 +12,10 @@ using Techademy_Employee_System.Data;
 namespace Techademy_Employee_System.Migrations
 {
     [DbContext(typeof(TechademyDbContext))]
-    partial class TechademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221105111421_initial4")]
+    partial class initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,22 +26,16 @@ namespace Techademy_Employee_System.Migrations
 
             modelBuilder.Entity("Techademy_Employee_System.Models.Designation", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    b.Property<string>("DesignationName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DepartmentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DesignationName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("DesignationName");
 
                     b.ToTable("designation");
                 });
@@ -75,34 +71,6 @@ namespace Techademy_Employee_System.Migrations
                     b.ToTable("employee");
                 });
 
-            modelBuilder.Entity("Techademy_Employee_System.Models.Leave", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LeaveReason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeaveType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.ToTable("leaves");
-                });
-
             modelBuilder.Entity("Techademy_Employee_System.Models.Payment", b =>
                 {
                     b.Property<int>("id")
@@ -116,6 +84,9 @@ namespace Techademy_Employee_System.Migrations
 
                     b.Property<string>("PaymentRule")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("experience")
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -151,40 +122,6 @@ namespace Techademy_Employee_System.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("Techademy_Employee_System.Models.Users", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Mobile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("user");
                 });
 
             modelBuilder.Entity("Techademy_Employee_System.Models.WorkingHours", b =>

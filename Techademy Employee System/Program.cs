@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Techademy_Employee_System.Core.IServices;
 using Techademy_Employee_System.Core.Services;
 using Techademy_Employee_System.Data;
@@ -15,16 +18,38 @@ builder.Services.AddDbContext<TechademyDbContext>(a => a.UseSqlServer(builder.Co
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 builder.Services.AddScoped<IDesignationService, DesignationService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IWorkinghoursService, WorkinghoursService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<ILeaveService, LeaveService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "localhost",
+        ValidAudience = "localhost",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtConfig:Key"])),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(name: "AllowOrigin", builder =>
-//    {
-//        builder.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod();
-//    });
-//});
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowOrigin", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -36,10 +61,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseHttpsRedirection();
+app.UseCors("AllowOrigin");
+//app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+
+
 
 app.Run();

@@ -26,7 +26,7 @@ namespace Techademy_Employee_System.Controllers
         {
             registerService = _registerService;
         }
-        [AllowAnonymous]
+        
         [HttpPost]
         [Route("SignUp")]
         public string PostRegistration([FromBody] User user)

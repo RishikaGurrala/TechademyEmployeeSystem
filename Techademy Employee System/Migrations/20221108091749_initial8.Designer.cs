@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Techademy_Employee_System.Data;
 
@@ -11,9 +12,10 @@ using Techademy_Employee_System.Data;
 namespace Techademy_Employee_System.Migrations
 {
     [DbContext(typeof(TechademyDbContext))]
-    partial class TechademyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221108091749_initial8")]
+    partial class initial8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

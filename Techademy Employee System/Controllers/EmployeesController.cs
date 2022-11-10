@@ -34,16 +34,16 @@ namespace Techademy_Employee_System.Controllers
         {
             return employeeService.PostEmployee(emp);
         }
-        [HttpPut]
-        [Route("Put")]
-        public string PutEmployee(int EmployeeId, [FromBody] Employee emp)
+        [HttpPut("{EmployeeId}")]
+        
+        public string PutEmployee(int EmployeeId,Employee emp)
         {
             return employeeService.UpdateEmployee(EmployeeId, emp);
 
         }
-        [HttpDelete]
-        [Route("Delete")]
-        public string DeleteEmployee([FromBody] int EmployeeId)
+        [HttpDelete("{EmployeeId}")]
+        
+        public string DeleteEmployee(int EmployeeId)
         {
             return employeeService.DeleteEmployee(EmployeeId);
         }

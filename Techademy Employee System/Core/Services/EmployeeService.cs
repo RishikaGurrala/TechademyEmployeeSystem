@@ -97,7 +97,7 @@ namespace Techademy_Employee_System.Core.Services
                 }
                 else
                 {
-                    return "Designation updation failed";
+                    return "updation failed";
                 }
             }
             catch (Exception ex)

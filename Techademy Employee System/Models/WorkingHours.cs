@@ -9,10 +9,10 @@ namespace Techademy_Employee_System.Models
     
     public class WorkingHours
     {
-        [Key]
-        public string? CompanyWorkingHours { get; set; }
+        public int id { get; set; }
+        public double CompanyWorkingHours { get; set; }
         [ForeignKey("EmployeeId")]
         public int EmployeeId { get; set; }
-        public string? EmployeeWorkingHours { get; set; }
+        public double EmployeeWorkingHours { get; set; }
     }
 }
